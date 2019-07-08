@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+           <h:outputStylesheet library="css_1" name="estilos_1.css" />         
+        <title>Registro de Inscripción:</title>
+    </h:head>
+ 
+    <h:body>
+ 
+   <div class="contenedor">
+       <h:form  class="form">  
+       <div class="fom-header">
+           <h1 class="form-title">Formulario<span>Registro Usuario</span></h1>
+       </div>
+            <p:growl id="msj" autoUpdate="true"/>
+       <label for="nomUsuario" class="form-label">Nombre Usuario:</label>
+       <p:inputText title="text" id="Socio" value="#{usuarioBean.cliente.nombre}" class="form-input" 
+                    placeholder="Nombre del Usuario"   /> <br />
+       
+      <label for="Edad" class="form-label">Edad:</label>
+      <p:inputText  id="Edad" value="#{usuarioBean.cliente.edad}" class="form-input" 
+                placeholder="Escriba su edad" /> <br />
+      
+   <label for="Dirección" class="form-label">Direccion:</label>
+   <p:inputText type="Zona" id="Direccion" value="#{usuarioBean.cliente.dir}" class="form-input"
+placeholder="Escriba direccion Domiciolio" /> <br />
+   
+  <label for="Telefono" class="form-label">Telefono:</label>
+  <p:inputText id="Telefono" value="#{usuarioBean.cliente.telefono}" class="form-input" 
+placeholder="Escriba telefono" /> <br />
+  
+   <label for="Correo Electronico" class="form-label">Correo Electronico:</label>
+   <p:inputText id="Correo" value="#{usuarioBean.cliente.correo}" class="form-input" 
+               placeholder="Escriba la fecha de ingreso" /> <br />
+ 
+  <label for="Contraseña" class="form-label">Codigo:</label>
+  <p:password id="Codigo"  value="#{usuarioBean.cliente.contraseña}" feedback="true" class="form-input"  
+              placeholder="Escriba la fecha de ingreso" />
+   <br />
+  
+  
+
+  <p:commandButton onclick=" location.href='buscarMedicinaPorSintoma.jsp' "  action="#{usuarioBean.registrar()}" value="Enviar" class="btn-submit"  update="msj"/>
+ 
+</h:form>
+ </div>        
+    </h:body>
+</html>
+
