@@ -24,33 +24,40 @@ import javax.servlet.http.HttpServletResponse;
  * @author LUIS ANDRE
  */
 public class controLogin extends HttpServlet {
-UsuarioDAO dao = new UsuarioDAO();
- login log=new login();
- int r;
-  
+
+    UsuarioDAO dao = new UsuarioDAO();
+    login log = new login();
+    int r;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
-        String accion=request.getParameter("accion");
-       
-       if(accion.equals("Ingresar")){
-       String nom=request.getParameter("txtnom");
-              String contraseña=request.getParameter("txtcon");
-       
-              log.setUsuario(nom);
-              log.setContra(contraseña);
-           r=  dao.validar(log);
-              if(r==1){
-                  request.getSession().setAttribute("nom", nom);
-                  request.getSession().setAttribute("contraseña", contraseña);
-                  request.getRequestDispatcher("buscarMedicinaPorSintoma.jsp").forward(request, response);
-              }else if(r==0){
-               
-              request.getRequestDispatcher("loginCliente.jsp").forward(request, response);
-              }
-       }else {
-       request.getRequestDispatcher("loginCliente.jsp").forward(request, response);
-       }
+        String accion = request.getParameter("accion");
+
+        System.out.println("valor de accion es: " + accion);
+
+        if (accion.equals("Ingresar")) {
+
+            System.out.println("Ingreso ...");
+            String nom = request.getParameter("txtnom");
+            String contraseña = request.getParameter("txtcon");
+
+            log.setUsuario(nom);
+            log.setContra(contraseña);
+            r = dao.validar(log);
+            if (r == 1) {
+                System.out.println("Devolvio un elemento...");
+                request.getSession().setAttribute("nom", nom);
+                request.getRequestDispatcher("buscarMedicinaPorSintoma.jsp").forward(request, response);
+            } else if (r == 0) {
+                System.out.println("no devolvio nada");
+                request.getRequestDispatcher("loginCliente.jsp").forward(request, response);
+            }
+        } else {
+            System.out.println("Accion no es ingresar...");
+            request.getSession().invalidate();
+            request.getRequestDispatcher("loginCliente.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,11 +72,11 @@ UsuarioDAO dao = new UsuarioDAO();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (SQLException ex) {
-        Logger.getLogger(controLogin.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(controLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -83,11 +90,11 @@ UsuarioDAO dao = new UsuarioDAO();
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (SQLException ex) {
-        Logger.getLogger(controLogin.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(controLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
