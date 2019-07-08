@@ -1,4 +1,3 @@
-
 package dao;
 
 import java.sql.PreparedStatement;
@@ -10,10 +9,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Modelo.*;
 
-public class UsuarioDAO extends dao
-{
-    public void     registrar(Cliente valor_usuario) throws SQLException
-    {
+public class UsuarioDAO extends dao {
+
+    public void registrar(Cliente valor_usuario) throws SQLException {
         try {
             this.conectar();
             PreparedStatement pst;
@@ -28,41 +26,34 @@ public class UsuarioDAO extends dao
             pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally
-        {
+        } finally {
             this.Cerrar();
         }
     }
-    
-    
-   public int validar(login logeo) throws SQLException
-    {
-   String nom, cod;
-            ResultSet rs;
+
+    public int validar(login logeo) throws SQLException {
+        String nom, cod;
+        ResultSet rs;
         try {
             this.conectar();
             PreparedStatement pst = this.getCn().prepareStatement("SELECT Correo, Contraseña from cliente ");
-     
+
             rs = pst.executeQuery();
-            
-            while(rs.next())
-            {
-                nom =rs.getString(1);
-                cod=rs.getString(2);
-                
-                if(logeo.getUsuario().equals(nom) && logeo.getContra().equals(cod)){
-                      return 1;
+
+            while (rs.next()) {
+                nom = rs.getString(1);
+                cod = rs.getString(2);
+
+                if (logeo.getUsuario().equals(nom) && logeo.getContra().equals(cod)) {
+                    return 1;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
+        } finally {
             this.Cerrar();
         }
         return 0;
     }
 
-    
 }
